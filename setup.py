@@ -23,6 +23,7 @@ setup(
    author = 'Anushka Rajpoot',
    author_email = 'rajpootanushka4499@gmail.com',
    packages = find_packages(),
+   package_dir={'': 'src'},
    install_requires = get_requirements("requirements.txt")
 
 )
