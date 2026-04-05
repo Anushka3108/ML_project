@@ -22,8 +22,8 @@ setup(
    version = '0.0.1',
    author = 'Anushka Rajpoot',
    author_email = 'rajpootanushka4499@gmail.com',
-   packages = find_packages(where='ML_project'),
-   package_dir={'': 'ML_project'},
+   packages = find_packages(),
+
    install_requires = get_requirements("requirements.txt")
 
 )
