@@ -20,14 +20,17 @@ def predict_datapoint():
     if request.method=='GET':
         return render_template('home.html')
     else:
+        reading = float(request.form.get('reading_score'))
+        writing = float(request.form.get('writing_score'))
+        
         data=CustomData(
             gender=request.form.get('gender'),
-            race_ethnicity=request.form.get('ethnicity'),
+            race_ethnicity=request.form.get('race_ethnicity'),
             parental_level_of_education=request.form.get('parental_level_of_education'),
             lunch=request.form.get('lunch'),
             test_preparation_course=request.form.get('test_preparation_course'),
-            reading_score=float(request.form.get('writing_score')),
-            writing_score=float(request.form.get('reading_score'))
+            reading_score=reading,
+            writing_score=writing
 
         )
         pred_df=data.get_data_as_data_frame()
@@ -37,8 +40,9 @@ def predict_datapoint():
         predict_pipeline=PredictPipeline()
         print("Mid Prediction")
         results=predict_pipeline.predict(pred_df)
+        result = float(round(results[0], 2))
         print("after Prediction")
-        return render_template('home.html',results=prediction)
+        return render_template('home.html',results=result, values=[reading, writing])
     
 
 if __name__ == "__main__":
