@@ -22,12 +22,12 @@ def predict_datapoint():
     else:
         data=CustomData(
             gender=request.form.get('gender'),
-            race_ethnicity=request.form.get('ethnicity'),
+            race_ethnicity=request.form.get('race_ethnicity'),
             parental_level_of_education=request.form.get('parental_level_of_education'),
             lunch=request.form.get('lunch'),
             test_preparation_course=request.form.get('test_preparation_course'),
-            reading_score=float(request.form.get('writing_score')),
-            writing_score=float(request.form.get('reading_score'))
+            reading_score=float(request.form.get('reading_score')),
+            writing_score=float(request.form.get('writing_score'))
 
         )
         pred_df=data.get_data_as_data_frame()
@@ -38,7 +38,10 @@ def predict_datapoint():
         print("Mid Prediction")
         results=predict_pipeline.predict(pred_df)
         print("after Prediction")
-        return render_template('home.html',results=prediction)
+        
+        read_score = float(request.form.get('reading_score'))
+        write_score = float(request.form.get('writing_score'))
+        return render_template('home.html', results=round(results[0], 2), values=[read_score, write_score])
     
 
 if __name__ == "__main__":
